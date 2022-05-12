@@ -14,7 +14,10 @@ $i = 0
 
 foreach ($event in $myInvokeJSONreqResult.scotland.events)
 {
-    if ($event.date -gt 2022-01-01)
+
+    #$event.date is a string so we need to convert it to a string to do a proper comparison
+    $myDate = [datetime]::ParseExact($event.date, 'yyyy-MM-dd', $null)
+    if ($myDate -gt [datetime]::ParseExact('2022-01-01', 'yyyy-MM-dd', $null))
     {
         write-output "$i :  $($event.date)"
         $i = $i + 1
