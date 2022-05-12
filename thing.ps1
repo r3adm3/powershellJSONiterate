@@ -10,6 +10,14 @@ $myJSONresult = invoke-webrequest https://www.gov.uk/bank-holidays.json
 
 $myInvokeJSONreqResult = invoke-restmethod https://www.gov.uk/bank-holidays.json
 
-$another = $myInvokeJSONreqResult.scotland.events | where-object {$_.date -gt 2022-01-01}
+$i = 0
 
-write-output $another
+foreach ($event in $myInvokeJSONreqResult.scotland.events)
+{
+    if ($event.date -gt 2022-01-01)
+    {
+        write-output "$i :  $($event.date)"
+        $i = $i + 1
+    }
+}
+
